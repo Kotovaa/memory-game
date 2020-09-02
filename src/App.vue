@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Dashboard :pairs="5" :time="500" />
+    <Dashboard :pairs="15" :time="500" />
   </div>
 </template>
 
