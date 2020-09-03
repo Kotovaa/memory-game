@@ -2,7 +2,7 @@
     <div v-if="card.matched" class="card matched"></div>
 
     <div v-else class="card" @click="clickCard">
-        <img v-if="card.open" :src="card.image" />
+        <img v-if="card.flipp" :src="card.image" />
         <div v-else class="not-opened">?</div>
     </div>
 </template>
@@ -17,8 +17,8 @@
         },
         methods: {
             clickCard: function() {
-                if (!this.card.open && !this.card.matched) {
-                    this.$parent.$emit('onCardOpen', this.card)
+                if (!this.card.flipp && !this.card.matched) {
+                    this.$parent.$emit('onCardFlipp', this.card)
                 }
             }
         }

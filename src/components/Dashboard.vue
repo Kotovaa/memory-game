@@ -39,7 +39,7 @@
         deckCards: [],
         images: [],
         loading: true,
-        openedCards: [],
+        flippedCards: [],
         pairsMatched: 0,
         imgApiUrl: 'https://picsum.photos/200',
         turns: 0,
@@ -53,8 +53,8 @@
     },
     mounted() {
       this.getImages()
-      this.$on('onCardOpen', function(card) {
-        this.openCard(card)
+      this.$on('onCardFlipp', function(card) {
+        this.flippCard(card)
       });
     },
     watch: {
@@ -71,7 +71,7 @@
       },
       closeCards: function() {
         this.deckCards.forEach((card) => {
-          card.open = false
+          card.flipp = false
         })
       },
       getImages: async function() {
@@ -92,19 +92,24 @@
               number: numCard,
               pair: index,
               image: image,
-              open: false,
+              flipp: true,
               matched: false
             })
           }
         })
         this.deckCards = this.shuffleDeck(cards)
+        setTimeout(() => {
+          cards.forEach(card => {
+            card.flipp = false
+          })
+        }, 1000)
       },
-      handlePossibleMatch: function(openedCards) {
-        if (this.cardsMatch(openedCards)) {
-          const openedCardNumbers = [openedCards[0].number, openedCards[1].number]
+      handlePossibleMatch: function(flippedCards) {
+        if (this.cardsMatch(flippedCards)) {
+          const flippedCardNumbers = [flippedCards[0].number, flippedCards[1].number]
           this.deckCards.forEach((item, index) => {
-            if (openedCardNumbers.includes(item.number)) {
-              this.deckCards[index].open = false
+            if (flippedCardNumbers.includes(item.number)) {
+              this.deckCards[index].flipp = false
               this.deckCards[index].matched = true
             }
           })
@@ -116,25 +121,25 @@
           this.closeCards()
         }
         this.turns += 1
-        this.openedCards = []
+        this.flippedCards = []
       },
-      openCard: function(card) {
+      flippCard: function(card) {
         if(!this.startedGame) {
           this.startGame();
         }
-        if (this.openedCards.length === 2) {
+        if (this.flippedCards.length === 2) {
           return
         }
         this.deckCards.forEach((item, index) => {
           if (item.number === card.number) {
-            this.deckCards[index].open = true
+            this.deckCards[index].flipp = true
             return
           }
         })
-        this.openedCards.push(card)
-        if (this.openedCards.length === 2) {
+        this.flippedCards.push(card)
+        if (this.flippedCards.length === 2) {
           setTimeout(() => {
-            this.handlePossibleMatch(this.openedCards)
+            this.handlePossibleMatch(this.flippedCards)
           }, this.time)
         }
       },

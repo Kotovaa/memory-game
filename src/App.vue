@@ -1,19 +1,8 @@
 <template>
   <div id="app">
-    <Dashboard :pairs="15" :time="500" />
+    <router-view/>
   </div>
 </template>
-
-<script>
-import Dashboard from './components/Dashboard.vue'
-
-export default {
-  name: 'App',
-  components: {
-    Dashboard
-  }
-}
-</script>
 
 <style lang="scss">
 #app {
@@ -22,6 +11,24 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+#nav {
+  padding: 30px;
+
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
 }
 </style>
+<script>
+  import StartGame from "./components/StartGame";
+  export default {
+    components: { StartGame }
+  }
+</script>
