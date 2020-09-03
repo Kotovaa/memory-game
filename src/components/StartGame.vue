@@ -3,8 +3,9 @@
         <form>
             <input type="text" v-model="pairs" placeholder="Введите количество пар">
             <input type="text" v-model="time" placeholder="Введите время показа (мс)">
+            <input type="text" v-model="firstShowTime" placeholder="Введите время первого показа (мс)">
         </form>
-        <router-link class="start" :to="{ name: 'Dashboard', params: { pairs: +this.pairs, time: +this.time } }">Старт</router-link>
+        <router-link class="start" :to="{ name: 'Dashboard', params: { pairs: +this.pairs, time: +this.time, firstShowTime: +this.firstShowTime } }">Старт</router-link>
     </section>
 </template>
 
@@ -14,7 +15,8 @@
         data: () => {
             return {
                 pairs: null,
-                time: null
+                time: null,
+                firstShowTime: null
             }
         }
     }

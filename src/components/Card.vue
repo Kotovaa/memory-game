@@ -3,7 +3,7 @@
 
     <div v-else class="card" @click="clickCard">
         <img v-if="card.flipp" :src="card.image" />
-        <div v-else class="not-opened">?</div>
+        <div v-else class="not-flipped">Нажми</div>
     </div>
 </template>
 
@@ -28,7 +28,7 @@
 <style lang="scss">
     .card {
         display: inline-block;
-        margin: 25px;
+        margin: 10px;
         width: 100px;
         height: 100px;
         vertical-align: top;
@@ -37,12 +37,13 @@
         &.matched {
              cursor: default;
         }
-        .not-opened {
+        .not-flipped {
             border: 3px solid black;
             height: 100%;
+            display: flex;
+            flex-direction: column;
             text-align: center;
-            font-size: 32px;
-            padding-top: 25px;
+            justify-content: center;
         }
         img {
             display: inline-block;

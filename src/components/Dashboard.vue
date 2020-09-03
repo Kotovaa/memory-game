@@ -29,7 +29,8 @@
   export default {
     props: {
       pairs: Number,
-      time: Number
+      time: Number,
+      firstShowTime: Number,
     },
     components: {
       Card
@@ -102,7 +103,7 @@
           cards.forEach(card => {
             card.flipp = false
           })
-        }, 1000)
+        }, this.firstShowTime)
       },
       handlePossibleMatch: function(flippedCards) {
         if (this.cardsMatch(flippedCards)) {
@@ -196,7 +197,7 @@
     margin: 25px;
   }
   .cardWrapper {
-    max-width: 50%;
+    max-width: 40%;
     margin: 0 auto;
   }
 </style>
